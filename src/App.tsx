@@ -88,7 +88,7 @@ const PayPalButton = ({ amount, onSuccess, onCancel }: { amount: string, onSucce
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const clientId = import.meta.env.VITE_PAYPAL_CLIENT_ID || 'sb';
+    const clientId = (import.meta as any).env.VITE_GOOGLE_API_KEY || 'sb';
     
     if (!(window as any).paypal) {
       const script = document.createElement('script');
