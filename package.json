@@ -3,7 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
+  "scripts": {"build": "tsc",
+  "start": "node dist/server.js",
+  "dev": "ts-node server.ts"
     "dev": "tsx server.ts",
     "build": "vite build",
     "preview": "vite preview",
