@@ -3,10 +3,13 @@ import { createServer as createViteServer } from "vite";
 import Database from "better-sqlite3";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 const PORT = process.env.PORT || 3000;
 const db = new Database("database.sqlite");
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
     email TEXT PRIMARY KEY,
@@ -16,9 +19,11 @@ db.exec(`
     last_active TIMESTAMP
   )
 `);
+
 async function startServer() {
   const app = express();
   app.use(express.json());
+
   app.post("/api/users", (req, res) => {
     const { email, country, plan } = req.body;
     if (!email) return res.status(400).json({ error: "Email is required" });
@@ -38,6 +43,7 @@ async function startServer() {
       res.status(500).json({ error: "Database error" });
     }
   });
+
   app.post("/api/users/upload", (req, res) => {
     const { email } = req.body;
     if (!email) return res.status(400).json({ error: "Email is required" });
@@ -53,6 +59,7 @@ async function startServer() {
       res.status(500).json({ error: "Database error" });
     }
   });
+
   app.get("/api/admin/users", (req, res) => {
     try {
       const users = db.prepare("SELECT * FROM users ORDER BY last_active DESC").all();
@@ -62,33 +69,28 @@ async function startServer() {
       res.status(500).json({ error: "Database error" });
     }
   });
+
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
     });
     app.use(vite.middlewares);
-  } } else {
-    // This checks BOTH 'dist' and 'dist/client'
+  } else {
     const distPath = path.resolve(process.cwd(), "dist");
-    const clientPath = path.join(distPath, "client");
     app.use(express.static(distPath));
-    app.use(express.static(clientPath));
     app.get("*", (req, res) => {
-      // Try dist/index.html first, then dist/client/index.html
       res.sendFile(path.join(distPath, "index.html"), (err) => {
         if (err) {
-          res.sendFile(path.join(clientPath, "index.html"), (err2) => {
-            if (err2) {
-              res.status(404).send("Index file not found in dist or dist/client");
-            }
-          });
+          res.status(404).send("Index file not found");
         }
       });
     });
   }
+
   app.listen(Number(PORT), "0.0.0.0", () => {
     console.log(`Server running on port ${PORT}`);
   });
 }
+
 startServer();
