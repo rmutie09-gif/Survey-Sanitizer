@@ -89,11 +89,14 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.join(__dirname, "dist")));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "dist", "index.html"));
-    });
-  }
+    // Since the server is ALREADY inside the dist folder on Render, 
+  // we point to the current directory (".")
+  app.use(express.static(__dirname)); 
+  
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+  });
+}
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on http://localhost:${PORT}`);
