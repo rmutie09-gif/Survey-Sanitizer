@@ -79,19 +79,30 @@ async function startServer() {
   } else {
     const distPath = __dirname;
     const parentPath = path.resolve(__dirname, "..");
+    const rootPath = path.resolve(process.cwd(), "dist");
     
     app.use(express.static(distPath));
     app.use(express.static(parentPath));
+    app.use(express.static(rootPath));
 
     app.get("*", (req, res) => {
-      const indexPath = path.join(distPath, "index.html");
-      const parentIndexPath = path.join(parentPath, "index.html");
+      const paths = [
+        path.join(distPath, "index.html"),
+        path.join(parentPath, "index.html"),
+        path.join(rootPath, "index.html")
+      ];
       
-      res.sendFile(indexPath, (err) => {
-        if (err) {
-          res.sendFile(parentIndexPath);
+      const trySend = (index: number) => {
+        if (index >= paths.length) {
+          res.status(404).send("Could not find index.html in any known location.");
+          return;
         }
-      });
+        res.sendFile(paths[index], (err) => {
+          if (err) trySend(index + 1);
+        });
+      };
+      
+      trySend(0);
     });
   }
 
