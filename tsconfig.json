@@ -1,26 +1,21 @@
 {
   "compilerOptions": {
     "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "outDir": "./dist",
     "skipLibCheck": true,
     "isolatedModules": true,
     "noEmit": false,
-    "outDir": "./dist",
     "allowJs": true,
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    /* This is the cheat code line */
-    "allowImportingTsExtensions": true,
-    /* This tells TS it's okay not to emit for files that have .ts extensions */
-    "noEmitForJsFiles": false, 
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "server.ts", "vite.config.ts"]
-}
+  "include": ["src", "server.ts", "vite.config.ts"],
   "exclude": ["node_modules"]
 }
