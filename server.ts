@@ -88,10 +88,12 @@ async function startServer() {
       appType: "spa",
     });
     app.use(vite.middlewares);
-  } else {
-    // Since the server is ALREADY inside the dist folder on Render, 
-  // we point to the current directory (".")
+} else {
   app.use(express.static(__dirname)); 
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+  });
+}
   
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
