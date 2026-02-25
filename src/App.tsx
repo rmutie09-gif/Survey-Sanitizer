@@ -26,7 +26,7 @@ import {
   FileSpreadsheet, // Added
   ChevronRight   // Added
 } from 'lucide-react';
-import './App.css';
+import './index.css';
 import { motion, AnimatePresence } from 'motion/react';
 import { format, parse, isValid } from 'date-fns';
 
