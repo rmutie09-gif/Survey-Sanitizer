@@ -24,6 +24,7 @@ async function startServer() {
   const app = express();
   app.use(express.json());
 
+  // API Routes
   app.post("/api/users", (req, res) => {
     const { email, country, plan } = req.body;
     if (!email) return res.status(400).json({ error: "Email is required" });
@@ -70,6 +71,7 @@ async function startServer() {
     }
   });
 
+  // Serve Frontend
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -78,13 +80,15 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.resolve(process.cwd(), "dist");
+    
+    // Serve static files from dist
     app.use(express.static(distPath));
+    
+    // Explicitly serve assets folder (Fixes the disfigured layout)
+    app.use('/assets', express.static(path.join(distPath, 'assets')));
+
     app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"), (err) => {
-        if (err) {
-          res.status(404).send("Index file not found");
-        }
-      });
+      res.sendFile(path.join(distPath, "index.html"));
     });
   }
 
