@@ -3,14 +3,9 @@
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "skipLibCheck": true,
-
-    /* This is the magic line that fixes the "Did you mean .js?" errors */
-    "moduleResolution": "bundler",
-    
-    "allowImportingTsExtensions": true,
-    "rewriteRelativeImportExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
