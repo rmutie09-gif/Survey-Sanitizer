@@ -2,12 +2,14 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
-import { 
-  Upload, 
+import { clsx, type ClassValue } from 'clsx'; 
+import { cn } from './lib/utils.js'; 
+import { Upload, Download, Check, AlertCircle, FileText, Trash2, Filter, Search } from 'lucide-react';
+import './App.css'; 
+Upload, 
   Download, 
   CheckCircle2, 
   AlertTriangle, 
