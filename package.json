@@ -4,11 +4,9 @@
   "version": "0.0.0",
   "type": "module",
 "scripts": {
-  "build": "npm install && tsc",
+ "build": "tsc",
   "start": "node dist/server.js",
-  "dev": "tsx server.ts",
-  "clean": "rm -rf dist",
-  "lint": "tsc --noEmit"
+  "dev": "tsx server.ts"
 },
   "dependencies": {
     "@google/genai": "^1.29.0",
