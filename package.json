@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
 "scripts": {
- "build": "tsc",
-  "start": "node dist/server.js",
-  "dev": "tsx server.ts"
+  "dev": "vite",
+  "build": "tsc && vite build",
+  "start": "node dist/server.js"
 },
   "dependencies": {
     "@google/genai": "^1.29.0",
