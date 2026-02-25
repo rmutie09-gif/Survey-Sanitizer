@@ -1,7 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
 @layer base {
   ::-webkit-scrollbar {
     width: 8px;
@@ -17,7 +14,6 @@
     background: #cbd5e1;
   }
 }
-
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
