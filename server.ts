@@ -77,32 +77,16 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = __dirname;
-    const parentPath = path.resolve(__dirname, "..");
-    const rootPath = path.resolve(process.cwd(), "dist");
+    const distPath = path.resolve(process.cwd(), "dist");
     
     app.use(express.static(distPath));
-    app.use(express.static(parentPath));
-    app.use(express.static(rootPath));
 
     app.get("*", (req, res) => {
-      const paths = [
-        path.join(distPath, "index.html"),
-        path.join(parentPath, "index.html"),
-        path.join(rootPath, "index.html")
-      ];
-      
-      const trySend = (index: number) => {
-        if (index >= paths.length) {
-          res.status(404).send("Could not find index.html in any known location.");
-          return;
+      res.sendFile(path.join(distPath, "index.html"), (err) => {
+        if (err) {
+          res.status(404).send("Index file not found");
         }
-        res.sendFile(paths[index], (err) => {
-          if (err) trySend(index + 1);
-        });
-      };
-      
-      trySend(0);
+      });
     });
   }
 
