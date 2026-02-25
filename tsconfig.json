@@ -1,25 +1,29 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "outDir": "./dist",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
     "skipLibCheck": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "allowJs": true,
-    "jsx": "react-jsx",
-    "paths": {
-      "@/*": ["./*"]
-    },
-    
-    /* These lines fix the "allowSyntheticDefaultImports" and "TS1259" errors */
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
 
-    /* This allows Render to build the files */
-    "noEmit": false
+    /* This is the magic line that fixes the "Did you mean .js?" errors */
+    "moduleResolution": "bundler",
+    
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "outDir": "./dist",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src", "server.ts", "vite.config.ts"]
+  "include": ["src", "server.ts", "vite.config.ts"],
+  "exclude": ["node_modules"]
 }
