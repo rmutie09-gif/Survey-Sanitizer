@@ -7,27 +7,22 @@ import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
 import { clsx, type ClassValue } from 'clsx'; 
 import { cn } from './lib/utils.js'; 
-import { Upload, Download, Check, AlertCircle, FileText, Trash2, Filter, Search } from 'lucide-react';
-import './App.css'; 
-Upload, 
+import { 
+  Upload, 
   Download, 
+  Check, 
+  AlertCircle, 
+  FileText, 
+  Trash2, 
+  Filter, 
+  Search, 
   CheckCircle2, 
   AlertTriangle, 
-  Trash2, 
-  ShieldCheck, 
-  CreditCard, 
-  Globe, 
-  Zap,
-  ChevronRight,
-  FileSpreadsheet,
-  FileText,
-  RefreshCw,
-  Info,
-  Settings
+  ShieldCheck 
 } from 'lucide-react';
+import './App.css';
 import { motion, AnimatePresence } from 'motion/react';
 import { format, parse, isValid } from 'date-fns';
-import { cn } from './lib/utils';
 
 // --- Types ---
 
