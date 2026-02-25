@@ -18,7 +18,13 @@ import {
   Search, 
   CheckCircle2, 
   AlertTriangle, 
-  ShieldCheck 
+  ShieldCheck,
+  RefreshCw,     // Added
+  Zap,           // Added
+  Globe,         // Added
+  Info,          // Added
+  FileSpreadsheet, // Added
+  ChevronRight   // Added
 } from 'lucide-react';
 import './App.css';
 import { motion, AnimatePresence } from 'motion/react';
