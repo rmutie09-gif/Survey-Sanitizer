@@ -7,12 +7,9 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define PORT at the top
 const PORT = process.env.PORT || 3000;
-
 const db = new Database("database.sqlite");
 
-// Initialize Database Tables if they don't exist
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
     email TEXT PRIMARY KEY,
@@ -27,7 +24,6 @@ async function startServer() {
   const app = express();
   app.use(express.json());
 
-  // API Routes
   app.post("/api/users", (req, res) => {
     const { email, country, plan } = req.body;
     if (!email) return res.status(400).json({ error: "Email is required" });
@@ -74,7 +70,6 @@ async function startServer() {
     }
   });
 
-  // Vite middleware or Static files
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -82,8 +77,7 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    // In production, we serve from the dist/client folder usually
-    const distPath = path.join(__dirname, "client");
+    const distPath = __dirname;
     app.use(express.static(distPath));
     app.get("*", (req, res) => {
       res.sendFile(path.join(distPath, "index.html"));
